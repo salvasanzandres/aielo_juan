@@ -2,13 +2,9 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-/**
- * We're loading this component asynchronously
- * We are using some magic with es6-promise-loader that will wrap the module with a Promise
- * see https://github.com/gdi2290/es6-promise-loader for more info
- */
+import {WeatherService} from "../../domain/services/weather.service";
 
-console.log('`Barrel` component loaded asynchronously');
+
 
 @Component({
   selector: 'barrel',
@@ -24,8 +20,17 @@ console.log('`Barrel` component loaded asynchronously');
 })
 export class BarrelComponent implements OnInit {
 
+  constructor(private weatherService: WeatherService){}
+
   public ngOnInit() {
     console.log('hello `Barrel` component');
+
+
+    this.weatherService.getTest().subscribe(
+        response => {
+          console.log('YES', response);
+        }
+    )
   }
 
 }

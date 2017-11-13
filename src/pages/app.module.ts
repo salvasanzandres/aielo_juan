@@ -33,11 +33,12 @@ import { XLargeDirective } from './home/x-large';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
+import {WeatherService} from "../domain/services/weather.service";
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState
+  AppState, WeatherService
 ];
 
 type StoreType = {
