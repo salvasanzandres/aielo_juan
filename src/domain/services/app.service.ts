@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import {IAppState} from "./contracts/iApp.service";
 
 export type InternalStateType = {
   [key: string]: any
 };
 
 @Injectable()
-export class AppState {
+export class AppState implements  IAppState{
 
   public _state: InternalStateType = { };
 
