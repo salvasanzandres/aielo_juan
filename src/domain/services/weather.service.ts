@@ -2,15 +2,19 @@ import {IWeather} from "./contracts/iWeather.service";
 import {Observable} from "rxjs";
 import {Weather} from "../models/weather";
 import {Injectable} from "@angular/core";
+import {IWeatherRepository} from "../../infastructure/contracts/iWeatherRepository";
 
 @Injectable()
 export class WeatherService implements  IWeather{
 
-    public getWeather(city: string): Observable<Weather>{
-        return new Observable(observer => {
-            setTimeout(() => {
-                observer.next(42);
-            }, 1000);})
+    constructor(public repository: IWeatherRepository){}
+
+    public getWeather(city: string): any{
+        return this.repository.getWeather("aielo").subscribe(
+            response=> {
+                console.log(response)
+            }
+        )
     }
 
     public getTest(): Observable<string>{

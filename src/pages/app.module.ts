@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {HttpModule, Http} from '@angular/http';
 import {
   NgModule,
   ApplicationRef
@@ -16,10 +16,6 @@ import {
 } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-/*
- * Platform and Environment providers/directives/pipes
- */
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 // App is our top level component
@@ -34,11 +30,28 @@ import { XLargeDirective } from './home/x-large';
 import '../styles/styles.scss';
 import '../styles/headings.css';
 import {WeatherService} from "../domain/services/weather.service";
+import {WeatherHttpProxy} from "../infastructure/proxies/weatherHttpProxy";
 
+export function getWeatherRepository(http){
+  return new WeatherHttpProxy(http);
+}
+export function getWeatherService(weatherRepository){
+  return new WeatherService(weatherRepository);
+}
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState, WeatherService
+  AppState,
+  {
+    provide: "WeatherRepository",
+    useFactory: getWeatherRepository,
+    deps: [Http]
+  },
+  {
+    provide: "WeatherService",
+    useFactory: getWeatherService,
+    deps: ["WeatherRepository"]
+  }
 ];
 
 type StoreType = {

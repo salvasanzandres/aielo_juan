@@ -1,8 +1,9 @@
 import {
   Component,
-  OnInit,
+  OnInit, Inject,
 } from '@angular/core';
 import {WeatherService} from "../../domain/services/weather.service";
+import {IWeather} from "../../domain/services/contracts/iWeather.service";
 
 
 
@@ -20,10 +21,11 @@ import {WeatherService} from "../../domain/services/weather.service";
 })
 export class BarrelComponent implements OnInit {
 
-  constructor(private weatherService: WeatherService){}
+  constructor( @Inject("WeatherService") public weatherService: IWeather){}
 
   public ngOnInit() {
     console.log('hello `Barrel` component');
+
 
 
     this.weatherService.getTest().subscribe(
@@ -31,6 +33,7 @@ export class BarrelComponent implements OnInit {
           console.log('YES', response);
         }
     )
+    this.weatherService.getWeather('PARIS');
   }
 
 }
