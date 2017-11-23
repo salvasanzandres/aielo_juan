@@ -1,5 +1,5 @@
 import {Observable} from "rxjs";
-import {Weather} from "../../models/weather";
+import {Weather} from "../../dto/model/weather";
 
 export interface IWeather{
     getWeather(city: string):Observable<any>;

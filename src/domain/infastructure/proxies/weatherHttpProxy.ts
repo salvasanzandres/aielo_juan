@@ -1,6 +1,6 @@
 import {IWeatherRepository} from "../contracts/iWeatherRepository";
 import {Observable} from "rxjs";
-import {ApiWeatherResponse} from "../../domain/models/responses/apiWeather";
+import {ApiWeatherResponse} from "../../domain/dto/response/apiWeather";
 import {Http, Response} from "@angular/http";
 import {Injectable} from "@angular/core";
 

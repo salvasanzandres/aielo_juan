@@ -1,8 +1,8 @@
 import {IWeather} from "./contracts/iWeather.service";
 import {Observable} from "rxjs";
-import {Weather} from "../models/weather";
+import {Weather} from "../dto/model/weather";
 import {Injectable} from "@angular/core";
-import {IWeatherRepository} from "../../infastructure/contracts/iWeatherRepository";
+import {IWeatherRepository} from "../infastructure/contracts/iWeatherRepository";
 
 @Injectable()
 export class WeatherService implements  IWeather{

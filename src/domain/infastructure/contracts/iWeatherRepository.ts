@@ -1,5 +1,5 @@
 import {Observable} from "rxjs";
-import {ApiWeatherResponse} from "../../domain/models/responses/apiWeather";
+import {ApiWeatherResponse} from "../../domain/dto/response/apiWeather";
 import {Response} from "@angular/http";
 
 export interface IWeatherRepository{

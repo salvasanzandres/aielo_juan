@@ -5,11 +5,6 @@
 * [Configuration](#configuration)
 * [AoT Don'ts](#aot-donts)
 * [External Stylesheets](#external-stylesheets)
-* [Contributing](#contributing)
-* [TypeScript](#typescript)
-* [@Types](#types)
-* [Frequently asked questions](#frequently-asked-questions)
-* [Support, Questions, or Feedback](#support-questions-or-feedback)
 * [Deployment](#deployment)
 * [License](#license)
 
@@ -125,127 +120,6 @@ For example to use Bootstrap as an external stylesheet:
 3) In `styles.scss` add `@import 'bootstrap/scss/bootstrap.scss';`
 4) In `src/app/app.module.ts` add underneath the other import statements: `import '../styles/styles.scss';`
 
-# Contributing
-You can include more examples as components but they must introduce a new concept such as `Home` component (separate folders), and Todo (services). I'll accept pretty much everything so feel free to open a Pull-Request
-
-# TypeScript
-> To take full advantage of TypeScript with autocomplete you would have to install it globally and use an editor with the correct TypeScript plugins.
-
-## Use latest TypeScript compiler
-TypeScript 2.1.x includes everything you need. Make sure to upgrade, even if you installed TypeScript previously.
-
-```
-npm install --global typescript
-```
-
-## Use a TypeScript-aware editor
-We have good experience using these editors:
-
-* [Visual Studio Code](https://code.visualstudio.com/)
-* [Webstorm 10](https://www.jetbrains.com/webstorm/download/)
-* [Atom](https://atom.io/) with [TypeScript plugin](https://atom.io/packages/atom-typescript)
-* [Sublime Text](http://www.sublimetext.com/3) with [Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
-
-### Visual Studio Code + Debugger for Chrome
-> Install [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) and see docs for instructions to launch Chrome
-
-The included `.vscode` automatically connects to the webpack development server on port `3000`.
-
-# Types
-> When you include a module that doesn't include Type Definitions inside of the module you can include external Type Definitions with @types
-
-i.e, to have youtube api support, run this command in terminal:
-```shell
-npm i @types/youtube @types/gapi @types/gapi.youtube
-```
-In some cases where your code editor doesn't support Typescript 2 yet or these types weren't listed in ```tsconfig.json```, add these to **"src/custom-typings.d.ts"** to make peace with the compile check:
-```es6
-import '@types/gapi.youtube';
-import '@types/gapi';
-import '@types/youtube';
-```
-
-## Custom Type Definitions
-When including 3rd party modules you also need to include the type definition for the module
-if they don't provide one within the module. You can try to install it with @types
-
-```
-npm install @types/node
-npm install @types/lodash
-```
-
-If you can't find the type definition in the registry we can make an ambient definition in
-this file for now. For example
-
-```typescript
-declare module "my-module" {
-  export function doesSomething(value: string): string;
-}
-```
-
-
-If you're prototyping and you will fix the types later you can also declare it as type any
-
-```typescript
-declare var assert: any;
-declare var _: any;
-declare var $: any;
-```
-
-If you're importing a module that uses Node.js modules which are CommonJS you need to import as
-
-```typescript
-import * as _ from 'lodash';
-```
-
-
-# Frequently asked questions
-* What's the current browser support for Angular?
-  * Please view the updated list of [browser support for Angular 2](https://github.com/angularclass/awesome-angular2#current-browser-support-for-angular-2)
-* Why is my service, aka provider, is not injecting parameter correctly?
-  * Please use `@Injectable()` for your service for typescript to correctly attach the metadata (this is a TypeScript problem)
-* Where do I write my tests?
-  * You can write your tests next to your component files. See [`/src/app/home/home.component.spec.ts`](/src/pages/home/home.component.spec.ts)
-* How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
-  * The `EADDRINUSE` error means the port `3000` is currently being used and `EACCES` is lack of permission for webpack to build files to `./dist/`
-* How to use `sass` for css?
- *  * `loaders: ['raw-loader','sass-loader']` and `@Component({ styleUrls: ['./filename.scss'] })` see Wiki page [How to include SCSS in components](https://github.com/AngularClass/angular-starter/wiki/How-to-include-SCSS-in-components), or issue [#136](https://github.com/AngularClass/angular-starter/issues/136) for more information.
-* How do I test a Service?  
-  * See issue [#130](https://github.com/AngularClass/angular-starter/issues/130#issuecomment-158872648)
-* How do I add `vscode-chrome-debug` support?
-  * The VS Code chrome debug extension support can be done via `launch.json` see issue [#144](https://github.com/AngularClass/angular-starter/issues/144#issuecomment-164063790)
-* How do I make the repo work in a virtual machine?
-  * You need to use `0.0.0.0` so revert these changes [#205](https://github.com/AngularClass/angular-starter/pull/205/files)
-* What are the naming conventions for Angular?
-  * please see issue [#185](https://github.com/AngularClass/angular-starter/issues/185) and PR [196](https://github.com/AngularClass/angular-starter/pull/196)
-* How do I include bootstrap or jQuery?
-  * please see issue [#215](https://github.com/AngularClass/angular-starter/issues/215) and [#214](https://github.com/AngularClass/angular-starter/issues/214#event-511768416)
-* How do I async load a component?
-  * see wiki [How-do-I-async-load-a-component-with-AsyncRoute](https://github.com/AngularClass/angular-starter/wiki/How-do-I-async-load-a-component-with-AsyncRoute)
-* Error: Cannot find module 'tapable'
-  * Remove `node_modules/` and run `npm cache clean` then `npm install`
-* How do I turn on Hot Module Replacement
-  * Run `npm run server:dev:hmr`
-* `RangeError: Maximum call stack size exceeded`
-  * This is a problem with minifying Angular and it's recent JIT templates. If you set `mangle` to `false` then you should be good.
-* Why is the size of my app larger in development?
-  * We are using inline source-maps and hot module replacement which will increase the bundle size.
-* If you're in China
-  * check out https://github.com/cnpm/cnpm
-* node-pre-gyp ERR in npm install (Windows)
-  * install Python x86 version between 2.5 and 3.0 on windows see issue [#626](https://github.com/AngularClass/angular-starter/issues/626)
-* `Error:Error: Parse tsconfig error [{"messageText":"Unknown compiler option 'lib'.","category":1,"code":5023},{"messageText":"Unknown compiler option 'strictNullChecks'.","category":1,"code":5023},{"messageText":"Unknown compiler option 'baseUrl'.","category":1,"code":5023},{"messageText":"Unknown compiler option 'paths'.","category":1,"code":5023},{"messageText":"Unknown compiler option 'types'.","category":1,"code":5023}]`
-  * remove `node_modules/typescript` and run `npm install typescript@beta`. This repo now uses ts 2.0
-* "There are multiple modules with names that only differ in casing"
-  * change `c:\[path to angular-starter]` to `C:\[path to angular-starter]` see [926#issuecomment-245223547](https://github.com/AngularClass/angular-starter/issues/926#issuecomment-245223547)
-
-# Support, Questions, or Feedback
-> Contact us anytime for anything about this repo or Angular
-
-* [Chat: AngularClass.slack](http://angularclass.com/member-join/)
-* [Twitter: @AngularClass](https://twitter.com/AngularClass)
-* [Gitter: AngularClass/angular2-webpack-starter](https://gitter.im/angularclass/angular2-webpack-starter)
-
 # Deployment
 
 ## Docker
@@ -337,25 +211,3 @@ docker run -e VIRTUAL_HOST=angular-starter.your-domain.com --name angular-starte
 
 `docker exec -t -i angular-starter /bin/bash`
 
-## Netlify
-
-You can quickly create a free site to get started using this
-starter kit in production on [Netlify](https://www.netlify.com/):
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/AngularClass/angular-starter)
-
-___
-
-enjoy — **AngularClass** a **OneSpeed** company
-
-<br><br>
-
-[![OneSpeed](https://user-images.githubusercontent.com/1016365/28739734-462f5210-73b2-11e7-92f7-2aabe05cfefa.png  "OneSpeed")](https://onespeed.io)
-## [OneSpeed](https://onespeed.io)
-> Our experience is vast with OneSpeed successfully creating and delivering solutions for companies like Bloomberg, American Airlines, and IBM.
-> We will tailor our solutions to fit your needs. Web App Development Services, Mobile App Services, Corporate Training contact us at Patrick@OneSpeed.io
-
-___
-
-# License
- [MIT](/LICENSE)

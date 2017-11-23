@@ -30,7 +30,7 @@ import { XLargeDirective } from './home/x-large';
 import '../styles/styles.scss';
 import '../styles/headings.css';
 import {WeatherService} from "../domain/services/weather.service";
-import {WeatherHttpProxy} from "../infastructure/proxies/weatherHttpProxy";
+import {WeatherHttpProxy} from "../domain/infastructure/proxies/weatherHttpProxy";
 
 export function getWeatherRepository(http){
   return new WeatherHttpProxy(http);
