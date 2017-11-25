@@ -51,7 +51,7 @@ import { AppState } from '../domain/services/app.service';
     <footer>
       <div>
         <a [href]="url">
-          <img [src]="angularclassLogo" width="50px">
+          <img [src]="angularclassLogo" width="50px">PEPA
         </a>
       </div>
     </footer>
